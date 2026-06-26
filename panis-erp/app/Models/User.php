@@ -41,4 +41,8 @@ class User extends Authenticatable implements AuditableContract
     public function perfil() {
         return $this->belongsTo(Perfil::class, 'id_perfil');
     }
+
+    public function empresa() {
+        return $this->hasMany(Empresa::class);
+    }
 }

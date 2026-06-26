@@ -8,14 +8,15 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-#[Fillable(['nome', 'id_dono'])]
+#[Fillable(['nome', 'id_empresa'])]
 class Loja extends Model implements AuditableContract
 {
     use Auditable;
     use AuditableTrait;
 
-    public function dono() {
-        return $this->hasOne('\App\Models\Usuario', 'id_dono');
+    protected $table = 'loja';
+
+    public function empresa() {
+        return $this->hasOne(Empresa::class, 'id_empresa');
     }
-    
 }
