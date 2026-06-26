@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class LojaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,11 +18,9 @@ class UserRequest extends FormRequest
     public function messages(): array {
         return [
             "required" => "O preenchimento deste campo é obrigatório!",
-            "exists" => "O tipo deve ser válido",
+            "exists" => "Um dono deve ser atribuído",
             "max" => "O tamanho máximo é [:max] caracteres",
             "min" => "O tamanho mínimo é [:min] caracteres",
-            "email" => "Digite um email válido",
-            "not_in" => "nice try :D",
         ];
     }
 
@@ -35,9 +33,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => "required|max:100|min:4",
-            'email' => "required|max:255|email",
             'password' => "required",
-            'id_perfil' => "required|exists:perfil,id|not_in:0",
+            'id_dono' => "required|exists:users,id",
         ];
     }
 }

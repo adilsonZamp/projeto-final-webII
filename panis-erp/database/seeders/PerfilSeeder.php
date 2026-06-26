@@ -16,19 +16,19 @@ class PerfilSeeder extends Seeder
         DB::table('perfil')->insert(
             [
                 [
-                    'id_perfil' => 0,
+                    'id' => 0,
                     'descricao' => 'Administrador'
                 ],
                 [
-                    'id_perfil' => 1,
+                    'id' => 1,
                     'descricao' => 'Dono'
                 ],
                 [
-                    'id_perfil' => 2,
+                    'id' => 2,
                     'descricao' => 'Gerente'
                 ],
                 [
-                    'id_perfil' => 3,
+                    'id' => 3,
                     'descricao' => 'Funcionario'
                 ],
             ]

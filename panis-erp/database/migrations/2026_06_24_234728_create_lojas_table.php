@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perfil', function (Blueprint $table) {
+        Schema::create('lojas', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao');
+            $table->string('nome');
+            $table->unsignedInteger('id_dono');
+            $table->foreign('id_dono')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perfil');
+        Schema::dropIfExists('lojas');
     }
 };

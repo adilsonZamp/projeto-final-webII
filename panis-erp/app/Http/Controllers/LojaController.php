@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\Perfil;
-use App\Models\User;
-use App\Services\UsuarioService;
+use App\Http\Requests\LojaRequest;
+use App\Models\Loja;
+use App\Services\LojaService;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class LojaController extends Controller
 {
     public function __construct(
-        private UsuarioService $service
+        private LojaService $service
     ) {}
 
     /**
@@ -20,8 +19,8 @@ class UsuarioController extends Controller
     public function index()
     {
         // Gate::authorize('viewAny', Aluno::class);
-        $usuarios = User::with(['perfil'])->get();
-        return view('usuario.index', compact(['usuarios']));
+        // $data = Aluno::all();
+        return view('loja.index', compact(['data']));
     }
 
     /**
@@ -31,26 +30,19 @@ class UsuarioController extends Controller
     {
         // Gate::authorize('create', Aluno::class);
         // $cursos = Curso::all();
-        //chamar service de perfil
-        $perfis = Perfil::find([1, 2, 3]);
-        return view('usuario.create', compact(['perfis']));
+        return view('loja.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(LojaRequest $request)
     {
         $validacao = $request->validated();
         // Gate::authorize('create', Aluno::class);
         // $validacao = $request->validated();
         // Aluno::create($validacao);
-        try {
-            $this->service->inserir(new User($validacao));
-        } catch (\Throwable $th) {
-            $erro = 'Ocorreu um erro ao salvar, tente novamente.';
-            return redirect()->route('usuario.create')->with('erro', $erro)->withInput();
-        }
+        $this->service->inserir(new Loja($validacao));
 
         //chama service para validar e mandar request para inserir na base
 
@@ -93,7 +85,7 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, string $id)
+    public function update(LojaRequest $request, string $id)
     {
         // $aluno = Aluno::find($id);
 

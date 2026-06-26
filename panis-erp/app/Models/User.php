@@ -39,6 +39,6 @@ class User extends Authenticatable implements AuditableContract
     }
 
     public function perfil() {
-        return $this->hasOne('\App\Models\Perfil', 'id_perfil');
+        return $this->belongsTo(Perfil::class, 'id_perfil');
     }
 }
