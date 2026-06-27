@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->unsignedInteger('id_perfil');
             $table->foreign('id_perfil')->references('id')->on('perfil');
+            $table->unsignedInteger('id_responsavel')->nullable();
+            $table->foreign('id_responsavel')->references('id')->on('users');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

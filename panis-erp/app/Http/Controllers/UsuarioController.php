@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UsuarioController extends Controller
 {
     public function __construct(
-        private UsuarioService $service
+        private UsuarioService $service,
     ) {}
 
     /**
@@ -20,7 +20,8 @@ class UsuarioController extends Controller
     public function index()
     {
         // Gate::authorize('viewAny', Aluno::class);
-        $usuarios = User::with(['perfil'])->get();
+        $usuarios = $this->service->getAllUsuarios();
+        
         return view('usuario.index', compact(['usuarios']));
     }
 
@@ -32,8 +33,13 @@ class UsuarioController extends Controller
         // Gate::authorize('create', Aluno::class);
         // $cursos = Curso::all();
         //chamar service de perfil
-        $perfis = Perfil::find([1, 2, 3]);
-        return view('usuario.create', compact(['perfis']));
+        $perfis = $this->service->getAllPerfis();
+        
+        $usuarios = $this->service->getAllUsuarios();
+        $donos = $usuarios->where('id_perfil', '=', 1);
+        $gerentes = $usuarios->where('id_perfil', '=', 2);
+        
+        return view('usuario.create', compact(['perfis', 'donos', 'gerentes']));
     }
 
     /**

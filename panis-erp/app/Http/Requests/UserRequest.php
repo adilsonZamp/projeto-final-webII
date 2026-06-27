@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Services\UsuarioService;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,6 +14,36 @@ class UserRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function withValidator($validator)
+    {
+        //faz validação com lógica depois das Rules
+        $validator->after(function ($validator) {
+            $usuarioService = app(UsuarioService::class);
+
+            // dd([$this->id_perfil, $this->id_responsavel]);
+
+            $perfil = $this->id_perfil;
+            $responsavel = $this->id_responsavel;
+
+            if ($perfil == 2) {
+                // dd($responsavel);
+                if (!$usuarioService->validarHierarquiaGerente($responsavel)) {
+                    $validator->errors()->add(
+                        'id_responsavel',
+                        'Gerentes precisam ter um dono responsável.'
+                    );
+                }
+            } else if ($perfil == 3) {
+                if (!$usuarioService->validarHierarquiaFuncionario($responsavel)) {
+                    $validator->errors()->add(
+                        'id_responsavel',
+                        'Funcionários precisam ter um gerente responsável.'
+                    );
+                }
+            }
+        });
     }
 
     public function messages(): array {
@@ -38,6 +69,11 @@ class UserRequest extends FormRequest
             'email' => "required|max:255|email",
             'password' => "required",
             'id_perfil' => "required|exists:perfil,id|not_in:0",
+            'id_responsavel' => [
+                'nullable',
+                'required_if:id_perfil,2,3',
+                'exists:users,id'
+            ],
         ];
     }
 }
