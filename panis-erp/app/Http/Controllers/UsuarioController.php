@@ -58,9 +58,7 @@ class UsuarioController extends Controller
             return redirect()->route('usuario.create')->with('erro', $erro)->withInput();
         }
 
-        //chama service para validar e mandar request para inserir na base
-
-        return redirect()->route('dashboard');
+        return redirect()->route('admin/dashboard');
     }
 
     /**

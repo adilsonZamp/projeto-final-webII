@@ -18,6 +18,10 @@ class UserRequest extends FormRequest
 
     public function prepareForValidation()
     {
+        $this->merge([
+            'password' => $this->nova,
+        ]);
+        
         if ($this->id_perfil == 2 && $this->id_responsavel == null) {
             $idUserLogado = auth()->id();
             $this->merge([
