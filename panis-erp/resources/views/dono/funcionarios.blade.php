@@ -1,4 +1,6 @@
 <div>
+    <a href="{{ route('dono/funcionario/create') }}">Novo Funcionário</a>
+    <a href="{{ route('dono/home') }}">Voltar</a>
     <ul>
         <div>
             @foreach ($funcionarios as $funcionario)

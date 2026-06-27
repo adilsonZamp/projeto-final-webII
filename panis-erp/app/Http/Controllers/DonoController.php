@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LojaRequest;
+use App\Http\Requests\UserRequest;
+use App\Models\User;
 use App\Services\DonoService;
+use App\Services\UsuarioService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DonoController extends Controller
 {
     public function __construct(
-        private DonoService $service
+        private DonoService $service,
+        private UsuarioService $serviceUsuario,
     ) {}
 
     /**
@@ -43,10 +46,23 @@ class DonoController extends Controller
         // return view('loja.create');
     }
 
+    public function createFuncionario()
+    {
+        // Gate::authorize('create', Aluno::class);
+        // $cursos = Curso::all();
+        $donologado = Auth::user();
+        $responsaveis = $this->service->listarGerentes($donologado);
+        $perfis = $this->serviceUsuario->getAllPerfisCadastro();
+        $donologadoNome = $donologado->name;
+
+        return view('dono.createFuncionario', compact(['responsaveis', 'perfis', 'donologadoNome']));
+    }
+    
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(LojaRequest $request)
+    public function storeFuncionario(UserRequest $request)
     {
         $validacao = $request->validated();
         // Gate::authorize('create', Aluno::class);
@@ -55,8 +71,14 @@ class DonoController extends Controller
         // $this->service->inserir(new Loja($validacao));
 
         //chama service para validar e mandar request para inserir na base
+        try {
+            $this->serviceUsuario->inserir(new User($validacao));
+        } catch (\Throwable $th) {
+            $erro = 'Ocorreu um erro ao salvar, tente novamente.';
+            return redirect()->route('dono/funcionarios')->with('erro', $erro)->withInput();
+        }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dono/funcionarios');
     }
 
     /**

@@ -16,6 +16,17 @@ class UserRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        if ($this->id_perfil == 2 && $this->id_responsavel == null) {
+            $idUserLogado = auth()->id();
+            $this->merge([
+                'id_responsavel' => $idUserLogado,
+            ]);
+            // dd(['id_responsavel' => $this->id_responsavel,'id_perfil' => $this->id_perfil]);
+        }
+    }
+
     public function withValidator($validator)
     {
         //faz validação com lógica depois das Rules

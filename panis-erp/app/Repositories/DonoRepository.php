@@ -12,4 +12,9 @@ class DonoRepository {
         
         return $funcionarios->concat($gerentes);
     }
+    public function listarGerentes(User $dono) {
+        $gerentes = User::with(['perfil', 'responsavel'])->where('id_responsavel', '=', $dono->id)->get();
+        
+        return $gerentes;
+    }
 }

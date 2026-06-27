@@ -38,4 +38,7 @@ class UsuarioService
     public function getAllPerfis() {
         return $this->repository->getAllPerfis();
     }
+    public function getAllPerfisCadastro() {
+        return $this->repository->getAllPerfisCadastro();
+    }
 }

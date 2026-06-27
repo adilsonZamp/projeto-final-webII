@@ -22,5 +22,7 @@ class UsuarioRepository {
     public function getAllPerfis() {
         return Perfil::where('id', '!=', 0)->get();
     }
-
+    public function getAllPerfisCadastro() {
+        return Perfil::whereNotIn('id', [0, 1])->get();
+    }
 }
