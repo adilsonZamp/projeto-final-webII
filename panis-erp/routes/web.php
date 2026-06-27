@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('admin/dashboard');
 
 Route::resource('/usuario', UsuarioController::class);
 Route::resource('/loja', LojaController::class);
