@@ -12,3 +12,10 @@ Para fins da avaliação o projeto tem os seguintes requisitos técnicos:
 6. Acesso aos dados/funcionalidades através de Autorização e Policies;
 7. Implementar padrão CSR (Controller - Service - Repository);
 8. Suportar auditoria, com Laravel Auditing.
+
+* Após clonar execute os seguintes passos para rodar a aplicação
+- composer install
+- php artisan generate:key
+- php artisans migrate:fresh --seed
+- (vite HMR) em outro terminal rode: npm run dev || npm run build
+- php artisan serve -- port 8000
