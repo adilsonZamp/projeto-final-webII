@@ -13,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-#[Fillable(['name', 'email', 'password', 'id_perfil'])]
+#[Fillable(['name', 'email', 'password', 'id_perfil', 'id_responsavel'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements AuditableContract
 {
