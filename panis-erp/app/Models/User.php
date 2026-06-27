@@ -38,6 +38,10 @@ class User extends Authenticatable implements AuditableContract
         ];
     }
 
+    public function responsavel() {
+        return $this->belongsTo(User::class, 'id_responsavel');
+    }
+
     public function perfil() {
         return $this->belongsTo(Perfil::class, 'id_perfil');
     }

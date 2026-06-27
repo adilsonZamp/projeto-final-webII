@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LojaRequest;
-use App\Models\Loja;
-use App\Services\LojaService;
+use App\Services\DonoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DonoController extends Controller
 {
-    // public function __construct(
-    //     private DonoService $service
-    // ) {}
+    public function __construct(
+        private DonoService $service
+    ) {}
 
     /**
      * Display a listing of the resource.
@@ -20,8 +20,18 @@ class DonoController extends Controller
     {
         // Gate::authorize('viewAny', Aluno::class);
         // $data = Aluno::all();
-        return view('dono.home', compact(['data']));
+        return view('dono.home');
     }
+
+    public function listFuncionarios()
+    {
+        // Gate::authorize('viewAny', Aluno::class);
+        // $data = Aluno::all();
+        $funcionarios = $this->service->listarFuncionarios(Auth::user());
+
+        return view('dono.funcionarios', compact(['funcionarios']));
+    }
+    
 
     /**
      * Show the form for creating a new resource.

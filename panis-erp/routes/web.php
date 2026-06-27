@@ -29,7 +29,9 @@ Route::resource('/usuario', UsuarioController::class);
 Route::resource('/loja', LojaController::class);
 
 // Route::middleware('auth')->group(function () {
-    Route::get('/dono/home', [DonoController::class, 'index']);
+    Route::get('/dono/home', [DonoController::class, 'index'])->name('dono/home');
+    Route::get('/dono/funcionarios', [DonoController::class, 'listFuncionarios'])->name('dono/funcionarios');
+    
 // });
 
 // Route::middleware('auth')->group(function () {

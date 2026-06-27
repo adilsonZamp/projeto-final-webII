@@ -15,13 +15,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            [//admin
+            [//admin - id: 1
                 'name' => 'admin',
                 'email' => 'admin@admin.admin',
                 'id_perfil' => 0,
                 'password' => Hash::make('admin'),
             ],
-            [//dono
+            [//dono - id: 2
                 'name' => 'Dono',
                 'email' => 'dono@dono.dono',
                 'id_perfil' => 1,
@@ -29,18 +29,18 @@ class UserSeeder extends Seeder
             ],
         ]);
         DB::table('users')->insert([
-            [//gerente
+            [//gerente - id: 3
                 'name' => 'Gerente',
                 'email' => 'gerente@gerente.gerente',
                 'id_perfil' => 2,
-                'id_responsavel' => 1,
+                'id_responsavel' => 2,
                 'password' => Hash::make('gerente'),
             ],
-            [//funcionario
+            [//funcionario - id: 4
                 'name' => 'Funcionario',
                 'email' => 'funcionario@funcionario.funcionario',
                 'id_perfil' => 3,
-                'id_responsavel' => 2,
+                'id_responsavel' => 3,
                 'password' => Hash::make('funcionario'),
             ],
         ]);
