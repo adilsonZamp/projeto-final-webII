@@ -13,7 +13,7 @@ Para fins da avaliação o projeto tem os seguintes requisitos técnicos:
 7. Implementar padrão CSR (Controller - Service - Repository);
 8. Suportar auditoria, com Laravel Auditing.
 
-* Após clonar execute os seguintes passos para rodar a aplicação
+Após clonar execute os seguintes passos para rodar a aplicação
 - composer install
 - php artisan generate:key
 - php artisans migrate:fresh --seed
