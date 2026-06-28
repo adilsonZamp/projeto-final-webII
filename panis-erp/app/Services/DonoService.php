@@ -14,10 +14,5 @@ class DonoService
     ) {}
     //regras de negócio sem depender de coisas externas
     //chamar repository para salvar
-    public function listarFuncionarios(User $donoLogado) {
-        return $this->repository->listarFuncionarios($donoLogado);
-    }
-    public function listarGerentes(User $donoLogado) {
-        return $this->repository->listarGerentes($donoLogado);
-    }
+    
 }

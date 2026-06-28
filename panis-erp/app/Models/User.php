@@ -38,6 +38,16 @@ class User extends Authenticatable implements AuditableContract
         ];
     }
 
+    public function homeRoute()
+    {
+        return match($this->id_perfil) {
+            0 => 'admin/dashboard',
+            1 => 'dono/home',
+            2 => 'gerente/home',
+            3 => 'funcionario/home',
+        };
+    }
+
     public function responsavel() {
         return $this->belongsTo(User::class, 'id_responsavel');
     }

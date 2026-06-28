@@ -49,7 +49,7 @@
             </div>
         @endif
 
-        <form id="a" action="{{ route('dono/funcionario/create') }}" method="POST">
+        <form id="a" action="{{ route('usuario.store') }}" method="POST">
             @csrf
             @method('POST')
             

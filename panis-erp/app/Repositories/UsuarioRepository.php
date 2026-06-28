@@ -19,10 +19,23 @@ class UsuarioRepository {
     }
 
     //pedaço de PerfilRepository
-    public function getAllPerfis() {
-        return Perfil::where('id', '!=', 0)->get();
+    public function getPerfis() {
+        return Perfil::get();
     }
     public function getAllPerfisCadastro() {
         return Perfil::whereNotIn('id', [0, 1])->get();
+    }
+
+    //ver se precisa....
+    public function listarFuncionarios(User $dono) {
+        $gerentes = User::with(['perfil', 'responsavel'])->where('id_responsavel', '=', $dono->id)->get();
+        $funcionarios = User::with(['perfil', 'responsavel'])->whereIn('id_responsavel', $gerentes->pluck('id')->toArray())->get();
+        
+        return $funcionarios->concat($gerentes);
+    }
+    public function listarGerentes(User $dono) {
+        $gerentes = User::with(['perfil', 'responsavel'])->where('id_responsavel', '=', $dono->id)->get();
+        
+        return $gerentes;
     }
 }

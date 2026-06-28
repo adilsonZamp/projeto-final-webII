@@ -18,9 +18,7 @@ class UserRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        $this->merge([
-            'password' => $this->nova,
-        ]);
+        // dd($this->array());
         
         if ($this->id_perfil == 2 && $this->id_responsavel == null) {
             $idUserLogado = auth()->id();
@@ -63,7 +61,8 @@ class UserRequest extends FormRequest
 
     public function messages(): array {
         return [
-            "required" => "O preenchimento deste campo é obrigatório!",
+            "required" => "O preenchimento do campo [:attribute] é obrigatório!",
+            "email.unique" => "Esse email já está em uso, por favor escolha outro.",
             "exists" => "O tipo deve ser válido",
             "max" => "O tamanho máximo é [:max] caracteres",
             "min" => "O tamanho mínimo é [:min] caracteres",
@@ -81,7 +80,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => "required|max:100|min:4",
-            'email' => "required|max:255|email",
+            'email' => "required|max:255|email|unique:users,email",
             'password' => "required",
             'id_perfil' => "required|exists:perfil,id|not_in:0",
             'id_responsavel' => [

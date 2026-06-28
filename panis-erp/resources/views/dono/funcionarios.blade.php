@@ -3,16 +3,16 @@
     <a href="{{ route('dono/home') }}">Voltar</a>
     <ul>
         <div>
-            @foreach ($funcionarios as $funcionario)
+            @foreach ($usuarios as $usuario)
                 <li>
                     <label for="name">Nome:</label>
-                    <span name="name">{{ $funcionario->name }}</span>
+                    <span name="name">{{ $usuario->name }}</span>
                     <br>
                     <label for="categoria">Categoria:</label>
-                    <span name="categoria">{{ $funcionario->perfil->descricao }}</span>
+                    <span name="categoria">{{ $usuario->perfil->descricao }}</span>
                     <br>
                     <label for="responsavel">Responsavel:</label>
-                    <span name="responsavel">{{ $funcionario->responsavel->name }}</span>
+                    <span name="responsavel">{{ $usuario->responsavel->name }}</span>
                     <br>
                     <a href="">Visualizar</a>
                     <a href="">Editar</a>

@@ -1,11 +1,9 @@
 <div>
     <a href="{{ route('dono/funcionarios') }}">Funcionarios</a>
-    <a>Lojas</a>
+    <a href="{{ route('dono/lojas') }}">Lojas</a>
     <a>Vendas</a>
-    <a>Funcionarios</a>
-    <a>Funcionarios</a>
-    <a>Funcionarios</a>
 
+    <br><br>
     <!-- Authentication -->
     <form method="POST" action="{{ route('logout') }}">
         @csrf

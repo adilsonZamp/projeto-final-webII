@@ -29,18 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if ($user->id_perfil == 0) {
-            return redirect()->intended(route('admin/dashboard', absolute: false));
-        } else if ($user->id_perfil == 1) {
-            return redirect()->intended(route('dono/home', absolute: false));
-        } else if ($user->id_perfil == 2) {
-            dd('em desenvolvimento');
-            return redirect()->intended(route('gerente/home', absolute: false));
-        } else if ($user->id_perfil == 3) {
-            dd('em desenvolvimento');
-            return redirect()->intended(route('funcionario/home', absolute: false));
-        }
-        dd('erro sinistro');
+        return redirect()->intended(route($user->homeRoute(), absolute: false));
     }
 
     /**

@@ -76,8 +76,8 @@
                 </div>
             @endif
 
-            <label for="nova">Senha</label>
-            <input type="password" name="nova" id="password" readonly value="senha" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" > 
+            <label for="password">Senha</label>
+            <input type="password" name="password" id="password" readonly value="senha" class="form-control @error('password') is-invalid @enderror" > 
             @if($errors->has('password'))
                 <div style="color:red">
                     {{ $errors->first('password') }}
