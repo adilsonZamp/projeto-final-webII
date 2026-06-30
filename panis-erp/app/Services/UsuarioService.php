@@ -19,6 +19,10 @@ class UsuarioService
         // }
     }
 
+    public function getAllDonos() {
+        return $this->repository->getAllDonos();
+    }
+
     public function getAllUsuariosVisiveis(User $usuarioLogado) {
         $allUsers = $this->repository->getAllUsuarios()->where('id_perfil', '!=', 0);
 

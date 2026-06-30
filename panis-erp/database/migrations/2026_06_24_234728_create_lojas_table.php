@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('loja', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->unsignedInteger('id_empresa');
-            $table->foreign('id_empresa')->references('id')->on('empresa');
+            $table->unsignedInteger('id_dono');
+            $table->foreign('id_dono')->references('id')->on('users');
             $table->timestamps();
         });
     }

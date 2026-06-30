@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('vinculo_loja', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('id_empregado');
-            $table->foreign('id_empregado')->references('id')->on('users');
-            $table->unsignedInteger('id_loja');
-            $table->foreign('id_loja')->references('id')->on('loja');
+            $table->foreignId('id_empregado')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('id_loja')->references('id')->on('loja')->cascadeOnDelete();
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

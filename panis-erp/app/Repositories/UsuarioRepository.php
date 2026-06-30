@@ -14,6 +14,10 @@ class UsuarioRepository {
         return User::with(['perfil'])->get();
     }
 
+    public function getAllDonos() {
+        return User::with(['perfil'])->where('id_perfil', '=', 1)->get();
+    }
+
     public function getUsuarioPorId(int $id) {
         return User::find($id);
     }

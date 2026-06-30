@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LojaRequest;
 use App\Models\Loja;
 use App\Services\LojaService;
+use App\Services\UsuarioService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LojaController extends Controller
 {
     public function __construct(
-        private LojaService $service
+        private LojaService $lojaService,
+        private UsuarioService $usuarioService,
     ) {}
 
     /**
@@ -20,7 +23,13 @@ class LojaController extends Controller
     {
         // Gate::authorize('viewAny', Aluno::class);
         // $data = Aluno::all();
-        return view('loja.index', compact(['data']));
+
+        //pegar todas as lojas do usuário logado
+        //dono pode ter mais de uma, funcionarios e gerentes tem a tabela vínculo
+
+        $lojas = $this->lojaService->getAllLojasVisiveis(Auth::user()->load(['perfil']));
+
+        return view('loja.index', compact(['lojas']));
     }
 
     /**
@@ -30,7 +39,15 @@ class LojaController extends Controller
     {
         // Gate::authorize('create', Aluno::class);
         // $cursos = Curso::all();
-        return view('loja.create');
+        $userLogado = Auth::user()->load(['perfil']);
+        //apenas admin e dono podem criar lojas
+        if ($userLogado->perfil->descricao == 'Administrador') {
+            $donos = $this->usuarioService->getAllDonos();
+            return view('loja.create', compact(['userLogado', 'donos']));
+        } else {
+            return view('loja.create', compact(['userLogado']));
+        }
+        
     }
 
     /**
@@ -42,11 +59,11 @@ class LojaController extends Controller
         // Gate::authorize('create', Aluno::class);
         // $validacao = $request->validated();
         // Aluno::create($validacao);
-        $this->service->inserir(new Loja($validacao));
+        $userLogado = Auth::user();
 
-        //chama service para validar e mandar request para inserir na base
+        $this->lojaService->inserir(new Loja($validacao), $userLogado);
 
-        return redirect()->route('dashboard');
+        return redirect()->route($userLogado->homeRoute());
     }
 
     /**

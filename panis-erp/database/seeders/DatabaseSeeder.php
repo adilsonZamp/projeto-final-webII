@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             [
                 PerfilSeeder::class,
                 UserSeeder::class,
+                LojaSeeder::class,
                 //mais seeders em ordem
             ]
         );

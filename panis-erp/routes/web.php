@@ -36,6 +36,8 @@ Route::resource('/loja', LojaController::class);
     Route::post('/dono/funcionarios/create', [UsuarioController::class, 'store'])->name('dono/funcionario/create');
     
     Route::get('/lojas', [LojaController::class, 'index'])->name('dono/lojas');
+    Route::get('/loja/create', [LojaController::class, 'create'])->name('loja/create');
+    Route::post('/loja/store', [LojaController::class, 'store'])->name('loja/store');
 
 // });
 
