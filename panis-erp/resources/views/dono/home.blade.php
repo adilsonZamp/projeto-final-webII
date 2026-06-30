@@ -1,7 +1,7 @@
 <div>
     <a href="{{ route('dono/funcionarios') }}">Funcionarios</a>
     <a href="{{ route('dono/lojas') }}">Lojas</a>
-    <a>Vendas</a>
+    <a href="{{ route('vendas') }}">Vendas</a>
 
     <br><br>
     <!-- Authentication -->

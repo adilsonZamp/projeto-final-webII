@@ -4,6 +4,7 @@ use App\Http\Controllers\DonoController;
 use App\Http\Controllers\LojaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\VendaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,6 +39,10 @@ Route::resource('/loja', LojaController::class);
     Route::get('/lojas', [LojaController::class, 'index'])->name('dono/lojas');
     Route::get('/loja/create', [LojaController::class, 'create'])->name('loja/create');
     Route::post('/loja/store', [LojaController::class, 'store'])->name('loja/store');
+
+    Route::get('/vendas', [VendaController::class, 'index'])->name('vendas');
+    Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas/create');
+    Route::post('/vendas/store', [VendaController::class, 'store'])->name('vendas/store');
 
 // });
 

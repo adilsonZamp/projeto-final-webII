@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vinculo_loja', function (Blueprint $table) {
+        Schema::create('loja_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_empregado')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('id_loja')->references('id')->on('loja')->cascadeOnDelete();
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('loja_id')->references('id')->on('loja')->cascadeOnDelete();
             $table->timestamps();
         }); 
     }

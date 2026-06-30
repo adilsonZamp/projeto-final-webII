@@ -21,6 +21,8 @@ class LojaService
                 $data->id_dono = $userLogado->id;
                 return $this->repository->inserir($data);
             }
+        } else if ($userLogado->perfil->descricao == 'Administrador') {
+            return $this->repository->inserir($data);
         }
     }
 
