@@ -1,13 +1,18 @@
 Sistema com características de um ERP para padarias.
 
-A ideia desse sistema é o Dono poder:
+A ideia desse sistema é o Dono poder
+
   [ ] Gerenciar várias lojas (CRUD);
+  
   [ ] Manter vários empregados (gerentes e funcionários);
+  
   [ ] Registrar dados de vendas de cada unidade;
+  
   [ ] Registrar folha salarial e contas a pagar;
+  
   [ ] ...
 
-Então o sistema compila esses dados e mostra com relatórios e dashboards, com o passar do tempo da para implementar mais módulos, como em ERPs consolidados no mercado.
+O sistema compila esses dados e mostra com relatórios e dashboards, com o passar do tempo da para implementar mais módulos, como em ERPs consolidados no mercado.
 
 Para fins da avaliação o projeto tem os seguintes requisitos técnicos:
 1. Ser desenvolvido com o framework Laravel na versão 13;
