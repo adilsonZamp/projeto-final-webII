@@ -8,6 +8,14 @@
             <li>
                 <span>Funcionario: {{ $vinculo->funcionario->name }}</span>
                 <span>Loja: {{ $vinculo->loja->nome }}</span>
+                <!-- apenas dono pode apagar vínculos -->
+                <form action="{{ 
+                    route('vinculos/delete', ['userId' => $vinculo->user_id, 'lojaId' => $vinculo->loja_id]) 
+                }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Excluir</button>
+                </form>
             </li>
         @endforeach
     </ul>

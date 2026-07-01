@@ -33,6 +33,7 @@ Route::resource('/loja', LojaController::class);
 Route::get('/vinculos', [VinculoController::class, 'index'])->name('vinculos');
 Route::get('/vinculos/create', [VinculoController::class, 'create'])->name('vinculos/create');
 Route::post('/vinculos/store', [VinculoController::class, 'store'])->name('vinculos/store');
+Route::delete('/vinculo/{userId}/{lojaId}', [VinculoController::class, 'delete'])->name('vinculos/delete');
 
 // Route::middleware('auth')->group(function () {
     Route::get('/dono/home', [DonoController::class, 'index'])->name('dono/home');

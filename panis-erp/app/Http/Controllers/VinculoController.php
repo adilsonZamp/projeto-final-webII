@@ -62,8 +62,16 @@ class VinculoController extends Controller
         return redirect()->route('vinculos');
     }
 
-    public function delete() {
-
+    public function delete(int $userId, int $lojaId) {
+        //Apenas dono pode deletar vínculos
+        try {
+            $this->service->delete($userId, $lojaId);
+        } catch (\Throwable $th) {
+            redirect()->back()->withErrors(
+                ['erro' => 'Erro ao excluir.'],
+            );
+        }
+        return redirect()->route('vinculos');
     }
 
 }

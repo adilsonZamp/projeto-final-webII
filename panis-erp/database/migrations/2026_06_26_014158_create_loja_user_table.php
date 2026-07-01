@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('loja_user', function (Blueprint $table) {
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('loja_id')->references('id')->on('loja')->cascadeOnDelete();
-            $table->unique('user_id', 'loja_id');
+            $table->unique(['user_id', 'loja_id']);
             $table->timestamps();
         }); 
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vinculo_loja');
+        Schema::dropIfExists('loja_user');
     }
 };

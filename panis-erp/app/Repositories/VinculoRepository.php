@@ -14,6 +14,13 @@ class VinculoRepository {
     //     return Vinculo::where('id_funcionario', '=', $userLogado->id)->get();
     // }
 
+    public function delete(int $userId, int $lojaId) {
+        return Vinculo::where([
+                'user_id' => $userId,
+                'loja_id' => $lojaId
+            ])->delete();
+    }
+
     public function getAllVinculosDono(User $donoLogado) {
         // dd($donoLogado->lojasDono->toArray());
         // dd($donoLogado->lojasDono->pluck('id')->toArray());
