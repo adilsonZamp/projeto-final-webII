@@ -1,4 +1,3 @@
-<!-- listar lojas -->
 <a href="{{ url()->previous() }}">Voltar</a>
 
 @if(session('erro'))

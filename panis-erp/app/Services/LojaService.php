@@ -32,6 +32,22 @@ class LojaService
         }
     }
 
+    public function update(Loja $novaLoja, User $userLogado, int $id) {
+        $loja = $this->getLoja($id, $userLogado);
+        $loja->fill($novaLoja->toArray());
+        
+        if ($userLogado->id == $loja->id_dono) {
+            return $this->repository->update($loja);
+        }
+    }
+
+    public function getLoja(int $id, User $userLogado) {
+        $loja = $this->repository->getLoja($id);
+        if ($userLogado->id == $loja->id_dono) {
+            return $loja;
+        }
+    }
+
     public function getAllLojasVisiveis(User $userLogado) {
         $lojas = $this->repository->getAllLojas();
 

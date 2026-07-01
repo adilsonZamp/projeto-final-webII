@@ -14,6 +14,14 @@ class LojaRepository {
         $loja->delete();
     }
 
+    public function update(Loja $loja) {
+        $loja->save();
+    }
+
+    public function getLoja(int $id) {
+        return Loja::where('id', $id)->first()->load(['dono']);
+    }
+
     public function getAllLojas() {
         return Loja::all()->load(['dono']);
     }

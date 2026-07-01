@@ -17,7 +17,7 @@
                     <br>
                     <!-- Apenas dono pode: -->
                     <a href="">Visualizar</a>
-                    <a href="">Editar</a>
+                    <a href="{{ route('loja.edit', ['loja' => $loja->id]) }}">Editar</a>
                     <form action="{{ 
                         route('loja.destroy', ['loja' => $loja->id]) 
                     }}" method="POST">

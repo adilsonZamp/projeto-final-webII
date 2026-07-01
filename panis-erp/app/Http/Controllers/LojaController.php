@@ -87,33 +87,34 @@ class LojaController extends Controller
      */
     public function edit(string $id)
     {
-        // $aluno = Aluno::find($id);
-        // $cursos = Curso::all();
+        $userLogado = Auth::user()->load(['perfil']);
+        $loja = $this->lojaService->getLoja($id, $userLogado);
 
+        //apenas dono pode
         // Gate::authorize('update', $aluno);
 
-        // if (isset($aluno) && isset($cursos)) {
-        //     return view('aluno.edit', compact(['aluno', 'cursos']));
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        return view('loja.edit', compact(['userLogado', 'loja']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(LojaRequest $request, string $id)
+    public function update(LojaRequest $request, string $id_loja)
     {
-        // $aluno = Aluno::find($id);
-
+        $userLogado = auth()->user();
+        $validado = $request->validated();
+    
+        //apenas dono pode
         // Gate::authorize('update', $aluno);
 
-        // if (isset($aluno)) {
-        //     $aluno->update($request->validated());
-        //     return redirect()->route('aluno.index');
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        try {
+            $this->lojaService->update(new Loja($validado), $userLogado, $id_loja);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors([
+                'erro' => 'Erro ao salvar mudanças.',
+            ]);
+        }
+        return redirect()->route('dono/lojas');
     }
 
     /**
