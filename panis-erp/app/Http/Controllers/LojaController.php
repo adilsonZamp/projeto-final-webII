@@ -121,19 +121,19 @@ class LojaController extends Controller
      */
     public function destroy(string $id)
     {
-        // $aluno = Aluno::find($id);
+        $userLogado = auth()->user();
+        $loja = Loja::find($id);
 
+        // apenas dono pode excluir
         // Gate::authorize('delete', $aluno);
 
-        // if (isset($aluno)) {
-        //     try {
-        //         $aluno->delete();
-        //     } catch (\Throwable $th) {
-        //         return redirect()->route('aluno.index')->with('erro', 'Existem matrículas que dependem desse aluno, para desinscrever ele é necessário revogar as matrículas');
-        //     }
-        //     return redirect()->route('aluno.index');
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        if (isset($loja)) {
+            try {
+                $this->lojaService->delete($loja, $userLogado);
+            } catch (\Throwable $th) {
+                return redirect()->route('loja.index')->with('erro', 'Erro ao tentar excluir loja, provavelemte existem registros que dependem dela.');
+            }
+            return redirect()->route('loja.index');
+        }
     }
 }

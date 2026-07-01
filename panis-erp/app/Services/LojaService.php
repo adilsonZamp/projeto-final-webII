@@ -26,6 +26,11 @@ class LojaService
             return $this->repository->inserir($data);
         }
     }
+    public function delete(Loja $loja, User $userLogado) {
+        if ($userLogado->id == $loja->id_dono) {
+            return $this->repository->delete($loja);
+        }
+    }
 
     public function getAllLojasVisiveis(User $userLogado) {
         $lojas = $this->repository->getAllLojas();

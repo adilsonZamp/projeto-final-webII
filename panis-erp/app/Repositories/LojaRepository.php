@@ -10,6 +10,10 @@ class LojaRepository {
         $data->save();
     }
 
+    public function delete(Loja $loja) {
+        $loja->delete();
+    }
+
     public function getAllLojas() {
         return Loja::all()->load(['dono']);
     }

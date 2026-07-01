@@ -1,4 +1,8 @@
 <!-- listar lojas -->
+@error('erro')
+    <span>{{ $message }}</span>
+@enderror
+
 <a href="{{ route('loja/create') }}">Criar Loja</a>
     <a href="{{ route('dono/home') }}">Voltar</a>
     <ul>
@@ -11,8 +15,16 @@
                     <label for="responsavel">Dono:</label>
                     <span name="responsavel">{{ $loja->dono->name }}</span>
                     <br>
+                    <!-- Apenas dono pode: -->
                     <a href="">Visualizar</a>
                     <a href="">Editar</a>
+                    <form action="{{ 
+                        route('loja.destroy', ['loja' => $loja->id]) 
+                    }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Excluir</button>
+                    </form>
                 </li>
                 <br>
             @endforeach
