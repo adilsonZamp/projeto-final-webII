@@ -49,8 +49,9 @@ class VendaController extends Controller
         // route name for vendas index: vendas
         $userLogado = auth()->user();
         $validado = $request->validated();
+        $venda = new Venda($validado);
 
-        if (!$this->vendaService->inserir(new Venda($validado), $userLogado)) {
+        if (!$this->vendaService->inserir($venda, $userLogado)) {
             // se o inserir der erro (retornar null) lança essa e volta para o anterior
             throw ValidationException::withMessages([
                 'sem_acesso_loja' => 'O usuário logado não tem acesso a essa loja.'

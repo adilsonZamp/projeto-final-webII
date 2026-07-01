@@ -58,39 +58,19 @@ class UsuarioController extends Controller
         }
     }
 
-    //criar funcionarios. Revisar pois ainda são usuários, talvez deva ir pro método create acima
-    // public function createFuncionario()
-    // {
-    //     // Gate::authorize('create', Aluno::class);
-    //     // $cursos = Curso::all();
-    //     
-    // }
-    // public function listFuncionarios()
-    // {
-    //     // Gate::authorize('viewAny', Aluno::class);
-    //     // $data = Aluno::all();
-    //     $funcionarios = $this->service->listarFuncionarios(Auth::user());
+    public function vinculos() {
+        //acho que nn precisa
+    }
 
-    //     return view('dono.funcionarios', compact(['funcionarios']));
-    // }
-    // public function storeFuncionario(UserRequest $request)
-    // {
-    //     $validacao = $request->validated();
-    //     // Gate::authorize('create', Aluno::class);
-    //     // $validacao = $request->validated();
-    //     // Aluno::create($validacao);
-    //     // $this->service->inserir(new Loja($validacao));
+    public function vinculosCreate() {
+        //usuários do dono
+        //lojas do dono
 
-    //     //chama service para validar e mandar request para inserir na base
-    //     try {
-    //         $this->serviceUsuario->inserir(new User($validacao));
-    //     } catch (\Throwable $th) {
-    //         $erro = 'Ocorreu um erro ao salvar, tente novamente.';
-    //         return redirect()->route('dono/funcionarios')->with('erro', $erro)->withInput();
-    //     }
+    }
 
-    //     return redirect()->route('dono/funcionarios');
-    // }
+    public function vinculosStore() {
+        
+    }
 
     /**
      * Store a newly created resource in storage.

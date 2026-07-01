@@ -16,6 +16,7 @@ class LojaService
     public function inserir(Loja $data, User $userLogado) {
         if ($userLogado->perfil->descricao == 'Dono') {
             if ($data->id_dono == $userLogado->id) {
+                //criar vinculo mesmo para dono
                 return $this->repository->inserir($data);
             } else {
                 $data->id_dono = $userLogado->id;

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Loja;
 use App\Models\User;
 use App\Models\Venda;
 
@@ -14,12 +15,10 @@ class VendaRepository {
         }
     }
 
-    public function getAllVendasUser(User $userLogado) {
-        $resposta = Venda::with(['loja'])->whereIn('id_loja', $userLogado->lojas->pluck('id')->toArray())->get();
-
-        // dd($resposta);
-
-        return $resposta;
+    public function getAllVendasDono(User $donoLogado) {
+        return $donoLogado->load(['vendas'])->vendas;
     }
-
+    public function getAllVendasFuncionario(User $funcionarioLogado) {
+        return Venda::whereIn('id_loja', $funcionarioLogado->lojas->pluck('id')->toArray());
+    }
 }

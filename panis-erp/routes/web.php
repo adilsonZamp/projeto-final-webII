@@ -29,6 +29,10 @@ Route::get('/dashboard', function () {
 Route::resource('/usuario', UsuarioController::class);
 Route::resource('/loja', LojaController::class);
 
+Route::get('/usuario/vinculos', [UsuarioController::class, 'vinculos'])->name('usuario/vinculos');
+Route::get('/usuario/vinculos/create', [UsuarioController::class, 'vinculosCreate'])->name('usuario/vinculos/create');
+Route::get('/usuario/vinculos/store', [UsuarioController::class, 'vinculosStore'])->name('usuario/vinculos/store');
+
 // Route::middleware('auth')->group(function () {
     Route::get('/dono/home', [DonoController::class, 'index'])->name('dono/home');
 
