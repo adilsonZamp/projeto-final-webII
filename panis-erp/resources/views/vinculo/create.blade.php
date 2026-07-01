@@ -1,6 +1,6 @@
 <!-- criar vinculo entre user (gerente ou funcionario) e loja -->
 <!-- apenas o dono e admin pode acessar e fazer a operação -->
-<a href="{{ url()->previous() }}">Voltar</a><br>
+<a href="{{ route('vinculos') }}">Voltar</a><br>
 
 @error('duplicado')
     <span style="color:red;">{{ $message  }}</span>
