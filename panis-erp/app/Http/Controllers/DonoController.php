@@ -26,9 +26,6 @@ class DonoController extends Controller
         return view('dono.home');
     }
 
-    
-    
-
     /**
      * Show the form for creating a new resource.
      */

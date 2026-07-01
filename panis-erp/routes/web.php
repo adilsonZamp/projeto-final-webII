@@ -25,17 +25,20 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('admin/dashboard');
+})->name('admin/dashboard')->middleware('auth');
 
-Route::resource('/usuario', UsuarioController::class);
-Route::resource('/loja', LojaController::class);
 
-Route::get('/vinculos', [VinculoController::class, 'index'])->name('vinculos');
-Route::get('/vinculos/create', [VinculoController::class, 'create'])->name('vinculos/create');
-Route::post('/vinculos/store', [VinculoController::class, 'store'])->name('vinculos/store');
-Route::delete('/vinculo/{userId}/{lojaId}', [VinculoController::class, 'delete'])->name('vinculos/delete');
+Route::resource('/usuario', UsuarioController::class)->middleware('auth');
+Route::resource('/loja', LojaController::class)->middleware('auth');
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::get('/vinculos', [VinculoController::class, 'index'])->name('vinculos');
+    Route::get('/vinculos/create', [VinculoController::class, 'create'])->name('vinculos/create');
+    Route::post('/vinculos/store', [VinculoController::class, 'store'])->name('vinculos/store');
+    Route::delete('/vinculo/{userId}/{lojaId}', [VinculoController::class, 'delete'])->name('vinculos/delete');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/dono/home', [DonoController::class, 'index'])->name('dono/home');
 
     Route::get('/dono/funcionarios', [UsuarioController::class, 'index'])->name('dono/funcionarios');
@@ -55,12 +58,12 @@ Route::delete('/vinculo/{userId}/{lojaId}', [VinculoController::class, 'delete']
     Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas/create');
     Route::post('/vendas/store', [VendaController::class, 'store'])->name('vendas/store');
 
-// });
+});
 
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+});
 
 require __DIR__.'/auth.php';
