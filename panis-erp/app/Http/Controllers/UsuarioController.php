@@ -37,6 +37,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
+        $storeOrUpdate = 'usuario.store';
         // Gate::authorize('create', Aluno::class);
         //chamar service de perfil
         $userLogado = Auth::user()->load('perfil');
@@ -49,12 +50,12 @@ class UsuarioController extends Controller
         $funcionarios = $usuarios->where('id_perfil', '=', 3);
 
         if ($userLogado->perfil->descricao == 'Administrador') {
-            return view('usuario.create', compact(['perfis', 'donos', 'gerentes']));
+            return view('usuario.create', compact(['perfis', 'donos', 'gerentes', 'storeOrUpdate']));
         } else {
             $responsaveis = $gerentes->where('id_responsavel', '=', $userLogado->id);
             $donologadoNome = $userLogado->name;
 
-            return view('dono.createFuncionario', compact(['responsaveis', 'perfis', 'donologadoNome']));
+            return view('dono.createFuncionario', compact(['responsaveis', 'perfis', 'donologadoNome', 'storeOrUpdate']));
         }
     }
 
@@ -82,15 +83,7 @@ class UsuarioController extends Controller
      */
     public function show(string $id)
     {
-        // $aluno = Aluno::find($id);
-        
-        // Gate::authorize('view', $aluno);
-
-        // if (isset($aluno)) {
-        //     return view('aluno.show', compact(['aluno']));
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        return "<h1>Não utilizado</h1>";
     }
 
     /**
@@ -98,16 +91,31 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        // $aluno = Aluno::find($id);
-        // $cursos = Curso::all();
+        $storeOrUpdate = 'dono/funcionario/update';
+        $userLogado = Auth::user()->load(['perfil']);
 
+        //apenas dono pode
         // Gate::authorize('update', $aluno);
 
-        // if (isset($aluno) && isset($cursos)) {
-        //     return view('aluno.edit', compact(['aluno', 'cursos']));
-        // }
+        $perfis = $this->service->getAllPerfisVisiveis($userLogado);
+        $usuarios = $this->service->getAllUsuariosVisiveis($userLogado);
+        
+        $prevUser = $this->service->getUser($id);
 
-        return "<h1>Aluno não encontrado</h1>";
+        if ($prevUser->id != null) {
+            $donos = $usuarios->where('id_perfil', '=', 1);
+            $gerentes = $usuarios->where('id_perfil', '=', 2);
+            $funcionarios = $usuarios->where('id_perfil', '=', 3);
+
+            if ($userLogado->perfil->descricao == 'Administrador') {
+                return view('usuario.create', compact(['perfis', 'donos', 'gerentes', 'storeOrUpdate', 'prevUser']));
+            } else {
+                $responsaveis = $gerentes->where('id_responsavel', '=', $userLogado->id);
+                $donologadoNome = $userLogado->name;
+
+                return view('dono.createFuncionario', compact(['responsaveis', 'perfis', 'donologadoNome', 'storeOrUpdate', 'prevUser']));
+            }
+        }
     }
 
     /**
@@ -115,16 +123,20 @@ class UsuarioController extends Controller
      */
     public function update(UserRequest $request, string $id)
     {
-        // $aluno = Aluno::find($id);
-
+        $userLogado = auth()->user();
+        $validado = $request->validated();
+    
+        //apenas dono pode
         // Gate::authorize('update', $aluno);
-
-        // if (isset($aluno)) {
-        //     $aluno->update($request->validated());
-        //     return redirect()->route('aluno.index');
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        
+        try {
+            $this->service->update($validado, $id, $userLogado);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors([
+                'erro' => 'Erro ao salvar mudanças.',
+            ]);
+        }
+        return redirect()->route('dono/funcionarios');
     }
 
     /**
@@ -132,19 +144,16 @@ class UsuarioController extends Controller
      */
     public function destroy(string $id)
     {
-        // $aluno = Aluno::find($id);
+        $userLogado = auth()->user();
 
+        // apenas dono e admin pode excluir
         // Gate::authorize('delete', $aluno);
 
-        // if (isset($aluno)) {
-        //     try {
-        //         $aluno->delete();
-        //     } catch (\Throwable $th) {
-        //         return redirect()->route('aluno.index')->with('erro', 'Existem matrículas que dependem desse aluno, para desinscrever ele é necessário revogar as matrículas');
-        //     }
-        //     return redirect()->route('aluno.index');
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        try {
+            $this->service->delete($userLogado, $id);
+        } catch (\Throwable $th) {
+            return redirect()->route('usuario.index')->with('erro', 'Erro ao tentar excluir loja, provavelemte existem registros que dependem dela.');
+        }
+        return redirect()->route('usuario.index');
     }
 }

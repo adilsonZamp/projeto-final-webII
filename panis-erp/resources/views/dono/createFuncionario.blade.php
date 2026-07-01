@@ -49,13 +49,20 @@
             </div>
         @endif
 
-        <form id="a" action="{{ route('usuario.store') }}" method="POST">
+        <form id="a" action="{{ $storeOrUpdate == 'usuario.store' 
+                                    ? route('usuario.store') 
+                                    : route('dono/funcionario/update', $prevUser->id) 
+        }}"  method="POST">
             @csrf
-            @method('POST')
+            @if ($storeOrUpdate == 'usuario.store')
+                @method('POST')
+            @elseif ($storeOrUpdate == 'dono/funcionario/update')
+                @method('PUT')
+            @endif
             
             <label for="name">Nome</label>
             <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" 
-            value="{{ old('name') }}" >
+            value="{{ old('name', $prevUser->name ?? null) }}" >
             @if($errors->has('name'))
                 <div style="color:red">
                     {{ $errors->first('name') }}
@@ -63,7 +70,9 @@
             @endif
 
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" autocomplete="new-email">
+            <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" 
+                value="{{ old('email', $prevUser->email ?? null) }}" autocomplete="new-email"
+            >
             @if($errors->has('email'))
                 <div style="color:red">
                     {{ $errors->first('email') }}
@@ -83,7 +92,7 @@
             <select name="id_perfil" id="id_perfil" class="form-control @error('id_perfil') is-invalid @enderror">
                 @foreach ($perfis as $perfil)
                     <option value="{{ $perfil->id }}"
-                        @if (old('id_perfil') == $perfil->id) selected @endif
+                        @if (old('id_perfil', $prevUser->id_perfil ?? null) == $perfil->id) selected @endif
                     >
                         {{ $perfil->descricao }}
                     </option>
@@ -101,7 +110,7 @@
                 <select name="id_responsavel" id="select-responsavel" style="display: none;" class="form-control @error('id_responsavel') is-invalid @enderror">
                     @foreach ($responsaveis as $responsavel)
                         <option value="{{ $responsavel->id }}"
-                            @if (old('id_responsavel') == $responsavel->id) selected @endif
+                            @if (old('id_responsavel', $prevUser->id_responsavel ?? null) == $responsavel->id) selected @endif
                         >
                             {{ $responsavel->id }}
                             {{ $responsavel->name }}

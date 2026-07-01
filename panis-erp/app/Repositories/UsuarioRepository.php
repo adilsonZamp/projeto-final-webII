@@ -18,6 +18,15 @@ class UsuarioRepository {
         return User::with(['perfil'])->where('id_perfil', '=', 1)->get();
     }
 
+    public function destroy(User $user) {
+        return $user->delete();
+    }
+
+    public function update(User $novo) {
+        // dd($novo);
+        return $novo->save();
+    }
+
     public function getUsuarioPorId(int $id) {
         return User::find($id);
     }

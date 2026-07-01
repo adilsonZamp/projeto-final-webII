@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Services\UsuarioService;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -78,16 +79,29 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => "required|max:100|min:4",
-            'email' => "required|max:255|email|unique:users,email",
-            'password' => "required",
-            'id_perfil' => "required|exists:perfil,id|not_in:0",
-            'id_responsavel' => [
-                'nullable',
-                'required_if:id_perfil,2,3',
-                'exists:users,id'
-            ],
-        ];
+        if ($this->isMethod('PUT')) {
+            return [
+                'name' => "required|max:100|min:4",
+                'email' => "required|max:255|email",
+                'id_perfil' => "required|exists:perfil,id|not_in:0",
+                'id_responsavel' => [
+                    'nullable',
+                    'required_if:id_perfil,2,3',
+                    'exists:users,id'
+                ],
+            ];
+        } else {
+            return [
+                'name' => "required|max:100|min:4",
+                'email' => ['required', 'max:255', 'email', Rule::unique('users', 'email')->ignore($this->route('id'))],
+                'password' => "required",
+                'id_perfil' => "required|exists:perfil,id|not_in:0",
+                'id_responsavel' => [
+                    'nullable',
+                    'required_if:id_perfil,2,3',
+                    'exists:users,id'
+                ],
+            ];
+        }
     }
 }

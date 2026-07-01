@@ -39,6 +39,23 @@ class UsuarioService
         }
     }
 
+    public function update(array $validado, $id) {
+        $user = $this->getUser($id);
+        $user->fill($validado);
+
+        
+        return $this->repository->update($user);
+    }
+
+    public function delete(User $userLogado, int $id) {
+        $user = $this->repository->getUsuarioPorId($id);
+        return $this->repository->destroy($user);
+    }
+
+    public function getUser(int $id) {
+        return $this->repository->getUsuarioPorId($id);
+    }
+
     public function validarHierarquiaGerente(int $id_responsavel) {
         $responsavel = $this->repository->getUsuarioPorId($id_responsavel);
         // dd($responsavel);

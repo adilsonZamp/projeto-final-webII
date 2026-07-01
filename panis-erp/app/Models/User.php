@@ -21,6 +21,7 @@ class User extends Authenticatable implements AuditableContract
     use AuditableTrait;
     protected $auditExclude = ['password', 'remember_token'];
     protected $auditThreshold = 50;
+    protected $table = 'users';
 
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
