@@ -71,15 +71,20 @@ class LojaController extends Controller
      */
     public function show(string $id)
     {
-        // $aluno = Aluno::find($id);
+        //tela que mostra funcionarios da loja
+        $userLogado = auth()->user()->load(['perfil']);
+        $loja = $this->lojaService->getLoja($id, $userLogado);
+
+        if ($userLogado->perfil->descricao == 'Dono') {
+            $empregados = $this->usuarioService->listarFuncionarios($userLogado);
+        } else {
+            $empregados = $this->usuarioService->getAllUsuariosVisiveis($userLogado);
+        }
         
+        //dono e gerente podem acessar
         // Gate::authorize('view', $aluno);
 
-        // if (isset($aluno)) {
-        //     return view('aluno.show', compact(['aluno']));
-        // }
-
-        return "<h1>Aluno não encontrado</h1>";
+        return view('loja.show', compact(['loja', 'empregados']));
     }
 
     /**

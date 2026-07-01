@@ -47,6 +47,7 @@ Route::delete('/vinculo/{userId}/{lojaId}', [VinculoController::class, 'delete']
     Route::post('/loja/store', [LojaController::class, 'store'])->name('loja/store');
     Route::get('/loja/edit', [LojaController::class, 'edit'])->name('loja/edit');
     Route::put('/loja/{id_loja}/update', [LojaController::class, 'update'])->name('loja/update');
+    Route::get('/loja/{id_loja}/show', [LojaController::class, 'show'])->name('loja/show');
 
     Route::get('/vendas', [VendaController::class, 'index'])->name('vendas');
     Route::get('/vendas/create', [VendaController::class, 'create'])->name('vendas/create');

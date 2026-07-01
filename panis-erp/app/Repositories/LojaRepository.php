@@ -23,7 +23,7 @@ class LojaRepository {
     }
 
     public function getAllLojas() {
-        return Loja::all()->load(['dono']);
+        return Loja::with(['dono']);
     }
 
     public function getAllLojasVinculadas(User $userLogado) {

@@ -16,7 +16,7 @@
                     <span name="responsavel">{{ $loja->dono->name }}</span>
                     <br>
                     <!-- Apenas dono pode: -->
-                    <a href="">Visualizar</a>
+                    <a href="{{ route('loja.show', ['loja' => $loja->id]) }}">Visualizar</a>
                     <a href="{{ route('loja.edit', ['loja' => $loja->id]) }}">Editar</a>
                     <form action="{{ 
                         route('loja.destroy', ['loja' => $loja->id]) 
