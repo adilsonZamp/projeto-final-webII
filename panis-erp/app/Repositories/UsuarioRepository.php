@@ -30,7 +30,6 @@ class UsuarioRepository {
         return Perfil::whereNotIn('id', [0, 1])->get();
     }
 
-    //ver se precisa....
     public function listarFuncionarios(User $dono) {
         $gerentes = User::with(['perfil', 'responsavel'])->where('id_responsavel', '=', $dono->id)->get();
         $funcionarios = User::with(['perfil', 'responsavel'])->whereIn('id_responsavel', $gerentes->pluck('id')->toArray())->get();

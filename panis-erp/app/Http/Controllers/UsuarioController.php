@@ -58,20 +58,6 @@ class UsuarioController extends Controller
         }
     }
 
-    public function vinculos() {
-        //acho que nn precisa
-    }
-
-    public function vinculosCreate() {
-        //usuários do dono
-        //lojas do dono
-
-    }
-
-    public function vinculosStore() {
-        
-    }
-
     /**
      * Store a newly created resource in storage.
      */

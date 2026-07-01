@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loja_user', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('loja_id')->references('id')->on('loja')->cascadeOnDelete();
+            $table->unique('user_id', 'loja_id');
             $table->timestamps();
         }); 
     }

@@ -64,6 +64,10 @@ class User extends Authenticatable implements AuditableContract
         return $this->belongsToMany(Loja::class);
     }
 
+    public function lojasDono() {
+        return $this->hasMany(Loja::class, 'id_dono');
+    }
+
     //hasManyThrough(
     //     ModelRelacionado,
     //     ModelIntermediario,

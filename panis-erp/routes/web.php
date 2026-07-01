@@ -5,6 +5,7 @@ use App\Http\Controllers\LojaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VendaController;
+use App\Http\Controllers\VinculoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,9 +30,9 @@ Route::get('/dashboard', function () {
 Route::resource('/usuario', UsuarioController::class);
 Route::resource('/loja', LojaController::class);
 
-Route::get('/usuario/vinculos', [UsuarioController::class, 'vinculos'])->name('usuario/vinculos');
-Route::get('/usuario/vinculos/create', [UsuarioController::class, 'vinculosCreate'])->name('usuario/vinculos/create');
-Route::get('/usuario/vinculos/store', [UsuarioController::class, 'vinculosStore'])->name('usuario/vinculos/store');
+Route::get('/vinculos', [VinculoController::class, 'index'])->name('vinculos');
+Route::get('/vinculos/create', [VinculoController::class, 'create'])->name('vinculos/create');
+Route::post('/vinculos/store', [VinculoController::class, 'store'])->name('vinculos/store');
 
 // Route::middleware('auth')->group(function () {
     Route::get('/dono/home', [DonoController::class, 'index'])->name('dono/home');

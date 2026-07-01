@@ -33,6 +33,9 @@ class UsuarioService
             $funcionarios = $allUsers->whereIn('id_responsavel', $gerentes->pluck('id')->toArray());
 
             return $funcionarios->concat($gerentes);
+        } else if ($usuarioLogado->perfil->descricao == 'Gerente') {
+            $funcionarios = $allUsers->whereIn('id_responsavel', $usuarioLogado->id);
+            return $funcionarios;
         }
     }
 
