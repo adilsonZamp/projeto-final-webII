@@ -27,6 +27,15 @@ class Loja extends Model implements AuditableContract
         return $this->belongsTo(User::class);
     }
 
+    public function empregadosLoja() {
+        return $this->belongsToMany(
+            User::class,
+            'loja_user',
+            'loja_id',
+            'user_id'
+        );
+    }
+
     public function vendas()
     {
         return $this->hasMany(Venda::class);

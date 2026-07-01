@@ -75,11 +75,8 @@ class LojaController extends Controller
         $userLogado = auth()->user()->load(['perfil']);
         $loja = $this->lojaService->getLoja($id, $userLogado);
 
-        if ($userLogado->perfil->descricao == 'Dono') {
-            $empregados = $this->usuarioService->listarFuncionarios($userLogado);
-        } else {
-            $empregados = $this->usuarioService->getAllUsuariosVisiveis($userLogado);
-        }
+        $loja->load(['empregadosLoja']);
+        $empregados = $loja->empregadosLoja;
         
         //dono e gerente podem acessar
         // Gate::authorize('view', $aluno);
